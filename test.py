@@ -1,3 +1,3 @@
-from epubMover import moveEpubFiles
+from fileMover import move_files_with_extension
 
-moveEpubFiles("test")
+move_files_with_extension("test", "epub")

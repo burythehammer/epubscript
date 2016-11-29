@@ -1,13 +1,9 @@
 import os
 
+def get_files(file_ext):
+    return filter(lambda f: f.find("." + file_ext) != -1, os.listdir("."))
 
-def isEpub(s):
-    return s.find(".epub") != -1
-
-def getEpubFiles():
-    return filter(isEpub, os.listdir("."))
-
-def moveEpubFile(filename):
+def move_file(filename):
     foldername = filename.split(".")[0]
 
     newPath = os.path.join(os.getcwd(), foldername, filename)
@@ -19,10 +15,10 @@ def moveEpubFile(filename):
         os.makedirs(foldername)
         os.rename(oldPath, newPath)
 
-def moveEpubFiles(foldername):
-    os.chdir(foldername)
-    for filename in getEpubFiles():
+def move_files_with_extension(folder_name, file_ext):
+    os.chdir(folder_name)
+    for filename in get_files(file_ext):
         try:
-            moveEpubFile(filename)
+            move_file(filename)
         except Warning as warning:
             print "Could not move file: " + warning.message
