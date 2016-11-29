@@ -2,10 +2,7 @@ import os
 
 
 def isEpub(s):
-    if s.find(".epub") == -1:
-        return False
-    else:
-        return True
+    return s.find(".epub") != -1
 
 def getEpubFiles():
     return filter(isEpub, os.listdir("."))
@@ -22,11 +19,10 @@ def moveEpubFile(filename):
         os.makedirs(foldername)
         os.rename(oldPath, newPath)
 
-
-os.chdir("test")
-
-for filename in getEpubFiles():
-    try:
-        moveEpubFile(filename)
-    except Warning as warning:
-        print "Could not move file: " + warning
+def moveEpubFiles(foldername):
+    os.chdir(foldername)
+    for filename in getEpubFiles():
+        try:
+            moveEpubFile(filename)
+        except Warning as warning:
+            print "Could not move file: " + warning.message
